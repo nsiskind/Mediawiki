@@ -1,9 +1,9 @@
 # Mediawiki
 
-##How to set up the application (step by step)
+## How to set up the application (step by step)
 ------------------------------------------------
 
-###1. Set Up
+### 1. Set Up
 1. Create a gcloud account and a new project
 
 2. Install kubernetes to your gcloud and set your project up 
@@ -36,7 +36,7 @@
 	```
 
  
-###2. Running the Application
+### 2. Running the Application
 
 1. To run the application just execute kubestart.sh.
 	```
@@ -52,6 +52,8 @@
 	kubectl get services
 	```
 
-###3. Closing Application and Deleteing the cluster
+### 3. Closing Application and Deleteing the cluster
 
-1. ```./kubestop.sh```
+1. ```
+	kubestop.sh
+`````

@@ -1,21 +1,18 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: mediawiki
+  name: badmediawiki
   labels:
     app: mediawiki
-    name: mediawiki
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: mediawiki
-      name: mediawiki
   template:
     metadata:
       labels:
         app: mediawiki
-        name: mediawiki
     spec:
       containers:
         - image: gcr.io/mediawiki-199619/mediawikimysql

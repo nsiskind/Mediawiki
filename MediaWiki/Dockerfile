@@ -47,4 +47,3 @@ RUN curl -fSL "https://releases.wikimedia.org/mediawiki/${MEDIAWIKI_MAJOR_VERSIO
 
 COPY ./LocalSettings.php /var/www/html
 
-

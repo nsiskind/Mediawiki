@@ -28,7 +28,7 @@ $wgSitename = "NoahsWiki";
 $wgScriptPath = "";
 
 ## The protocol and server name to use in fully-qualified URLs
-$wgServer = "http://mediawiki";
+$wgServer = "http://my-app";
 
 ## The URL path to static resources (images, scripts, etc.)
 $wgResourceBasePath = $wgScriptPath;
@@ -42,8 +42,8 @@ $wgLogo = "$wgResourceBasePath/resources/assets/wiki.png";
 $wgEnableEmail = true;
 $wgEnableUserEmail = true; # UPO
 
-$wgEmergencyContact = "apache@mediawiki";
-$wgPasswordSender = "apache@mediawiki";
+$wgEmergencyContact = "apache@my-app";
+$wgPasswordSender = "apache@my-app";
 
 $wgEnotifUserTalk = false; # UPO
 $wgEnotifWatchlist = false; # UPO

@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: mysql
   labels:
-    app: mediawiki
+    app: mysql
 spec:
   type: ClusterIP
   ports:

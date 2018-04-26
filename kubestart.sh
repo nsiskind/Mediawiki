@@ -7,7 +7,7 @@ echo "make sure youre logged into gcloud!"
 
 echo "creating cluster"
 
-gcloud container clusters create persistent-disk-tutorial --num-nodes=3
+gcloud container clusters create persistent-disk-tutorial --num-nodes=3 --enable-network-policy
 
 gcloud compute disks create --size 200GB mysql-disk
 gcloud compute disks create --size 200GB mediawiki-disk
@@ -22,13 +22,17 @@ kubectl create -f mysql.yaml
 
 kubectl create -f mysql-service.yaml
 
+echo "sleeping 30s while mysql configures"
+
+sleep 30
+
 kubectl create -f mediawiki.yaml
 
 kubectl create -f mediawiki-service.yaml
 
-kubectl create -f nginx.yaml
+kubectl create -f nginx-service.yaml
 
-./expose_nginx.sh
+#./expose_nginx.sh
 
 #kubectl create -f threeTierService.yaml
 

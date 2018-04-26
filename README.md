@@ -54,6 +54,6 @@
 
 ### 3. Closing Application and Deleteing the cluster
 
-1. ```
+```
 	kubestop.sh
-`````
+```

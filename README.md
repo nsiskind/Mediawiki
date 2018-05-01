@@ -69,8 +69,7 @@
 	
 
 ### 3. Closing Application and Deleteing the cluster
-
-	```
+```
 	./kubestop.sh
 	```
 
@@ -83,6 +82,6 @@ The cluster will be created to support network policies!
 
 To see your network policy enter:
 
-	```
+```
 	kubectl get NetworkPolicy
 	```

@@ -52,8 +52,24 @@
 	kubectl get services
 	```
 
+3. As of now, you must configure your applciation manually. To do this, you can access the external ip of the nginx load balancer when
+	you enter the get services command.
+	Then simply follow the directions and fill out the form. The only things that matter are the DB host, 
+	which is mysql (this is the DNS name which resolves to the cluster IP of the mysql pod),
+	the DB password, which based on this configuration is 123virtual, and the DB user, which should stay as root.
+	You may set the site name and other things to what ever you want.
+	Once you download the the LocalSettings.php file, copy it into the mediawiki pod using this command:
+
+	```
+	kubectl cp LocalSettings.php $(kubectl get pods | grep "mediawiki" | cut -c1-26):/var/www/html
+	```
+	
+	This will only work if you have one mediawiki pod running. If you would like to scale up, you must copy this file into the 
+	subsequently created containers.
+	
+
 ### 3. Closing Application and Deleteing the cluster
 
 ```
-	kubestop.sh
+	./kubestop.sh
 ```

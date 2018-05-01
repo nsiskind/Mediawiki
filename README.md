@@ -77,7 +77,7 @@
 
 ### 4. Extras
 
-	The cluster will be created to support network policies!
+The cluster will be created to support network policies!
 	To see them in action simply create the badmediawiki.yaml file and notice that it will not be able to communicate with the database.
 	This is because the kubestart script created the networkPolicy.yaml file.
 

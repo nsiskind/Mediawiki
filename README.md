@@ -70,9 +70,9 @@
 
 ### 3. Closing Application and Deleteing the cluster
 
-```
+	```
 	./kubestop.sh
-```
+	```
 
 
 ### 4. Extras

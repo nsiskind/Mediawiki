@@ -32,6 +32,8 @@ kubectl create -f mediawiki-service.yaml
 
 kubectl create -f nginx-service.yaml
 
+kubectl create -f networkPolicy.yaml
+
 #./expose_nginx.sh
 
 #kubectl create -f threeTierService.yaml

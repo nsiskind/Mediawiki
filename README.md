@@ -85,15 +85,15 @@ To see your network policy enter:
 
 	kubectl get NetworkPolicy
 	
-###5. Extras!
+### 5. Extras!
 
 -> [This](https://cloud.google.com/kubernetes-engine/docs/tutorials/persistent-diskhttps) is the tutorial that I based most stuff on
 
-#####Exposing kubernetes pods to each other:
+##### Exposing kubernetes pods to each other:
 
 [Service docs](https://kubernetes.io/docs/concepts/services-networking/service/#external-ips) specify that a service defines a “logical set of pods”    
 
-#####Connecting Pods in the Cluster:
+##### Connecting Pods in the Cluster:
 
 Pods can be connected in different ways. Many times it depends on the application running inside the pods. For example, with mediawiki, it is the LocalSettings.php file that really specifies where the data is going. Fortunately, you can set this up beforehand properly, using DNS (at least for the backend). Kubernetes DNS allows you to specify SERVICES by name. So as long as everything is consistent in the configs and the services, they will find each other.
 
@@ -116,7 +116,7 @@ Maybe, you could be able to use two separate services (or as many as you would l
 If you would like multiple load-balancers for the same application, you could just make multiple load-balancer services, which would have different external IP’s but all point to the same application/database. Check out the nginx-service.yaml file on the Github page to see how the LoadBalancer selects the mediawiki pods!
 
 
-#####Network policies in Kubernetes
+##### Network policies in Kubernetes
 
 [This tutorial](https://kubernetes.io/blog/2017/10/enforcing-network-policies-in-kubernetes) has proved very useful and simple.
 
@@ -131,7 +131,7 @@ Then, based on this yaml file, you may specify what pods may talk to others by r
 The second link here shows that kubernetes  allows you to specify restrictions on both Ingress and Egress traffic from pods.
  
 
-####Problems I ran into:
+#### Problems I ran into:
     
 The biggest set back in setting up this mediawiki application, was getting the mediawiki LocalSettings.php to be auto-generated. In fact, as of now, this has not been implemented and the LocalSettings must be manually generated and copied into the correct folder of the pod, as specified in the README.
 

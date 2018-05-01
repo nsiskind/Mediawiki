@@ -74,7 +74,7 @@
 	
 
 
-### 4. Extras
+### 4. Network Policy
 
 The cluster will be created to support network policies!
 	To see them in action simply create the badmediawiki.yaml file and notice that it will not be able to communicate with the database.
@@ -85,3 +85,54 @@ To see your network policy enter:
 
 	kubectl get NetworkPolicy
 	
+###5. Extras!
+
+-> [This](https://cloud.google.com/kubernetes-engine/docs/tutorials/persistent-diskhttps) is the tutorial that I based most stuff on
+
+#####Exposing kubernetes pods to each other:
+
+[Service docs](https://kubernetes.io/docs/concepts/services-networking/service/#external-ips) specify that a service defines a “logical set of pods”    
+
+#####Connecting Pods in the Cluster:
+
+Pods can be connected in different ways. Many times it depends on the application running inside the pods. For example, with mediawiki, it is the LocalSettings.php file that really specifies where the data is going. Fortunately, you can set this up beforehand properly, using DNS (at least for the backend). Kubernetes DNS allows you to specify SERVICES by name. So as long as everything is consistent in the configs and the services, they will find each other.
+
+LocalSettings also needs a specified external IP. This is harder to set up beforehand. As discussed below it is possible to specify in an nginx.conf file, but this may not be a proper set up.
+
+Mostly, DNS will be the way that pods find other pods. Each pod is given a cluster IP and a name when exposed as a service of type cluster IP.
+
+Load balancing the mediawiki application:
+    
+2 ways that I have discovered:
+
+1. You have specified that you would like mediawiki traffic to pass through a nginx pod.
+    
+Use nginx.conf file to build the image to point to the mediawiki service using DNS. Then, the service runs round robin on the mediawiki pods. 
+It also makes the MediaWiki’s LocalSettings.php configuration easier because the “external- ip” becomes a name specified in the nginx.conf file. 
+I’m not sure if this is balancing properly, as it’s really just pointing all traffic to one service, which runs round-robin naturally.
+Maybe, you could be able to use two separate services (or as many as you would like) to expose the mediawiki pods and then load balance those services, specifying it in the nginx.conf.
+
+2. kubernetes docs simply use a service of type load-balancer to expose the pods to the internet. The service knows which pods to expose by using a [run selector](https://kubernetes.io/docs/concepts/services-networking/connect-applications-service/)
+If you would like multiple load-balancers for the same application, you could just make multiple load-balancer services, which would have different external IP’s but all point to the same application/database. Check out the nginx-service.yaml file on the Github page to see how the LoadBalancer selects the mediawiki pods!
+
+
+#####Network policies in Kubernetes
+
+[This tutorial](https://kubernetes.io/blog/2017/10/enforcing-network-policies-in-kubernetes) has proved very useful and simple.
+
+[Here](https://kubernetes.io/docs/concepts/services-networking/network-policies/#the-networkpolicy-resource) is also some more specific documentation provided by kubernetes.
+
+Essentially after enabling network policies in the cluster using the flag --enable-network-policy,
+You can create a NetworkPolicy object, similar to the one in the tutorial. This can be created by the command:
+    Kubectl create -f network_policy_descriptor.yaml
+
+Then, based on this yaml file, you may specify what pods may talk to others by replacing the “app” in the example with apps, names, or tiers. To determine who can talk to who.
+
+The second link here shows that kubernetes  allows you to specify restrictions on both Ingress and Egress traffic from pods.
+ 
+
+####Problems I ran into:
+    
+The biggest set back in setting up this mediawiki application, was getting the mediawiki LocalSettings.php to be auto-generated. In fact, as of now, this has not been implemented and the LocalSettings must be manually generated and copied into the correct folder of the pod, as specified in the README.
+
+See [this](https://github.com/wikimedia/mediawiki-docker/tree/master/dev) repository for more information about automating the mediawiki set-up.
